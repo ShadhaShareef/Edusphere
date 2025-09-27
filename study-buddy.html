@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDUSPHERE - Study Buddy</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    
+    <header class="navbar">
+        <a href="index.html" class="logo">EDUSPHERE</a> 
+        <nav>
+            <a href="browse-notes.html" class="nav-link"><i class="fas fa-book-open"></i> Browse Notes</a>
+            <a href="study-buddy.html" class="nav-link active-nav"><i class="fas fa-user-friends"></i> Study Buddy</a>
+            <a href="quizzes.html" class="nav-link"><i class="fas fa-question-circle"></i> Quizzes</a>
+            <a href="progress.html" class="nav-link"><i class="fas fa-chart-line"></i> Progress</a>
+            <a href="scholarships.html" class="nav-link"><i class="fas fa-graduation-cap"></i> Scholarships</a>
+        </nav>
+        <div class="user-actions">
+            <button class="upload-btn"><i class="fas fa-cloud-upload-alt"></i> Upload</button>
+            <span class="welcome-text">Welcome!</span>
+        </div>
+    </header>
+
+    <main class="study-buddy-page">
+        <div class="page-header">
+            <i class="fas fa-video page-icon-buddy"></i> 
+            <h2>Study Buddy</h2>
+        </div>
+
+        <section class="host-session-container">
+            <h3>Host a Study Session</h3>
+            <p>Can't find what you're looking for? Start your own meet and let others join you!</p>
+            <button class="start-meet-btn"><i class="fas fa-video"></i> Start a Meet</button>
+        </section>
+
+        <section class="find-buddy-container">
+            <h3>Find a Buddy</h3>
+            <p>Filter by subject to find the right match for a one-on-one session.</p>
+            <div class="filter-controls">
+                <select class="subject-dropdown buddy-dropdown">
+                    <option value="all">All Subjects</option>
+                    <option value="math">Mathematics</option>
+                    <option value="science">Science</option>
+                    </select>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 EDUSPHERE. All rights reserved.</p>
+        <p>A platform for students, by students.</p>
+    </footer>
+
+</body>
+</html>
