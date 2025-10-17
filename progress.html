@@ -1,48 +1,303 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EDUSPHERE - Your Progress</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="styles.css" />
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+          background: #f8f9fc;
+          font-family: "Poppins", sans-serif;
+          margin: 0;
+          padding: 0;
+        }
+
+        .progress-page {
+          max-width: 1200px;
+          margin: 40px auto;
+          padding: 0 20px;
+        }
+
+        .page-header {
+          text-align: center;
+          margin-bottom: 30px;
+        }
+
+        .page-header h2 {
+          margin: 5px 0;
+        }
+
+        .summary-cards {
+          display: flex;
+          justify-content: center;
+          gap: 20px;
+          margin: 20px 0;
+          flex-wrap: wrap;
+        }
+
+        .summary-card {
+          background: #fff;
+          padding: 15px 25px;
+          border-radius: 15px;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+          text-align: center;
+          flex: 1;
+          max-width: 250px;
+          transition: 0.2s ease;
+        }
+
+        .summary-card:hover {
+          transform: translateY(-5px);
+        }
+
+        .summary-card h4 {
+          margin: 0;
+          color: #666;
+        }
+
+        .summary-card p {
+          font-size: 22px;
+          font-weight: 600;
+          margin-top: 8px;
+          color: #1a73e8;
+        }
+
+        .charts-section {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 20px;
+          margin: 20px 0;
+        }
+
+        .chart-container {
+          background: #fff;
+          padding: 15px;
+          border-radius: 15px;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+          flex: 1;
+          max-width: 500px;
+          height: 320px;
+        }
+
+        .chart-container h3 {
+          margin: 0 0 10px 0;
+          color: #333;
+          font-size: 18px;
+          text-align: center;
+        }
+
+        .chart-container canvas {
+          width: 100% !important;
+          height: 230px !important;
+        }
+
+        .recent-title {
+          text-align: center;
+          margin-top: 40px;
+          font-size: 20px;
+        }
+
+        .recent-cards {
+          display: flex;
+          gap: 20px;
+          flex-wrap: wrap;
+          justify-content: center;
+          margin-top: 15px;
+        }
+
+        .recent-card {
+          background: #fff;
+          border-radius: 15px;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+          padding: 15px 20px;
+          width: 250px;
+          transition: 0.2s ease;
+        }
+
+        .recent-card:hover {
+          transform: translateY(-4px);
+        }
+
+        .recent-card h4 {
+          margin: 0;
+          font-size: 16px;
+          color: #1a73e8;
+        }
+
+        .recent-card p {
+          margin: 4px 0;
+          color: #555;
+          font-size: 14px;
+        }
+    </style>
 </head>
+
 <body>
-    <header class="navbar">
-        <div class="logo">EDUSPHERE</div>
-        <nav>
-            <a href="index.html" class="nav-link"><i class="fas fa-book-open"></i> Browse Notes</a>
-            <a href="study-buddy.html" class="nav-link"><i class="fas fa-user-friends"></i> Study Buddy</a>
-            <a href="quizzes.html" class="nav-link"><i class="fas fa-question-circle"></i> Quizzes</a>
-            <a href="progress.html" class="nav-link active-nav"><i class="fas fa-chart-line"></i> Progress</a>
-            <a href="scholarships.html" class="nav-link"><i class="fas fa-graduation-cap"></i> Scholarships</a>
-        </nav>
-        <div class="user-actions">
-            <button class="upload-btn"><i class="fas fa-cloud-upload-alt"></i> Upload</button>
-            <span class="welcome-text">Welcome!</span>
-        </div>
-    </header>
+<header class="navbar">
+    <div class="logo">EDUSPHERE</div>
+    <nav>
+        <a href="index.html" class="nav-link"><i class="fas fa-book-open"></i> Browse Notes</a>
+        <a href="study-buddy.html" class="nav-link"><i class="fas fa-user-friends"></i> Study Buddy</a>
+        <a href="quizzes.html" class="nav-link"><i class="fas fa-question-circle"></i> Quizzes</a>
+        <a href="progress.html" class="nav-link active-nav"><i class="fas fa-chart-line"></i> Progress</a>
+        <a href="scholarships.html" class="nav-link"><i class="fas fa-graduation-cap"></i> Scholarships</a>
+    </nav>
+    <div class="user-actions">
+        <button class="upload-btn"><i class="fas fa-cloud-upload-alt"></i> Upload</button>
+        <span class="welcome-text">Welcome!</span>
+    </div>
+</header>
 
-    <main class="progress-page">
-        <div class="page-header">
-            <i class="fas fa-chart-line page-icon-progress"></i> 
-            <h2>Your Progress</h2>
-            <p>Review your quiz history and track your learning journey.</p>
-        </div>
+<main class="progress-page">
+    <div class="page-header">
+        <i class="fas fa-chart-line page-icon-progress"></i>
+        <h2>Your Progress</h2>
+        <p>Track your learning across subjects and quizzes.</p>
+    </div>
 
-        <div class="progress-report-card">
-            <div class="empty-state-icon">
-                <i class="far fa-file-alt"></i>
-            </div>
-            <h3>No Quizzes Taken Yet!</h3>
-            <p>It looks like your progress report is empty. Time to change that!</p>
-            <a href="quizzes.html" class="take-quiz-btn">Take Your First Quiz <i class="fas fa-arrow-right"></i></a>
+    <!-- Summary Cards -->
+    <div class="summary-cards">
+        <div class="summary-card">
+            <h4>Total Quizzes</h4>
+            <p id="total-quizzes">0</p>
         </div>
-    </main>
+        <div class="summary-card">
+            <h4>Best Subject</h4>
+            <p id="best-subject">—</p>
+        </div>
+        <div class="summary-card">
+            <h4>Average Score</h4>
+            <p id="avg-score">0%</p>
+        </div>
+    </div>
 
-    <footer class="footer">
-        <p>&copy; 2025 EDUSPHERE. All rights reserved.</p>
-        <p>A platform for students, by students.</p>
-    </footer>
+    <!-- Line Graphs -->
+    <div class="charts-section">
+        <div class="chart-container">
+            <h3>Physics Progress</h3>
+            <canvas id="physicsChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <h3>Chemistry Progress</h3>
+            <canvas id="chemistryChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Recent Quiz Cards -->
+    <h3 class="recent-title">Recent Quizzes</h3>
+    <div class="recent-cards" id="recent-quizzes"></div>
+</main>
+
+<footer class="footer">
+    <p>&copy; 2025 EDUSPHERE. All rights reserved.</p>
+    <p>A platform for students, by students.</p>
+</footer>
+
+<script>
+    async function loadProgress() {
+      try {
+        const res = await fetch("http://localhost:7000/api/results");
+        if (!res.ok) throw new Error("Failed to fetch results");
+        const data = await res.json();
+
+        if (!data.length) return;
+
+        // Fix invalid date
+        const formatDate = (d) => {
+          const date = new Date(d);
+          if (isNaN(date)) return "—";
+          return date.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+        };
+
+        // Sort recent results
+        data.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+        // Update summary
+        document.getElementById("total-quizzes").textContent = data.length;
+
+        let avgScore = data.reduce((a, b) => a + (b.score / b.total) * 100, 0) / data.length;
+        document.getElementById("avg-score").textContent = avgScore.toFixed(1) + "%";
+
+        // Subject performance grouping
+        const subjects = { physics: [], chemistry: [] };
+        data.forEach((r) => {
+          const title = (r.title || "").toLowerCase();
+          if (title.includes("physics")) subjects.physics.push(r);
+          else if (title.includes("chemistry")) subjects.chemistry.push(r);
+        });
+
+        // Best subject
+        let best = "—";
+        const physicsAvg =
+          subjects.physics.length > 0
+            ? subjects.physics.reduce((a, b) => a + b.score / b.total, 0) / subjects.physics.length
+            : 0;
+        const chemAvg =
+          subjects.chemistry.length > 0
+            ? subjects.chemistry.reduce((a, b) => a + b.score / b.total, 0) / subjects.chemistry.length
+            : 0;
+        if (physicsAvg > chemAvg) best = "Physics";
+        else if (chemAvg > physicsAvg) best = "Chemistry";
+        document.getElementById("best-subject").textContent = best;
+
+        // Graphs
+        function makeChart(ctxId, subjectData, color) {
+          const ctx = document.getElementById(ctxId);
+          if (!subjectData.length) return;
+          const labels = subjectData.map((r) => formatDate(r.timestamp));
+          const scores = subjectData.map((r) => ((r.score / r.total) * 100).toFixed(1));
+
+          new Chart(ctx, {
+            type: "line",
+            data: {
+              labels,
+              datasets: [
+                {
+                  label: "Score (%)",
+                  data: scores,
+                  borderColor: color,
+                  fill: false,
+                  tension: 0.3,
+                  pointRadius: 4,
+                },
+              ],
+            },
+            options: {
+              scales: { y: { beginAtZero: true, max: 100 } },
+              plugins: { legend: { display: false } },
+            },
+          });
+        }
+
+        makeChart("physicsChart", subjects.physics, "#1a73e8");
+        makeChart("chemistryChart", subjects.chemistry, "#f39c12");
+
+        // Recent cards
+        const recentContainer = document.getElementById("recent-quizzes");
+        const recent = data.slice(0, 3);
+        recent.forEach((r) => {
+          const card = document.createElement("div");
+          card.className = "recent-card";
+          card.innerHTML = `
+            <h4>${r.title || "Unknown Quiz"}</h4>
+            <p><strong>Score:</strong> ${r.score}/${r.total}</p>
+            <p><strong>Date:</strong> ${formatDate(r.timestamp)}</p>
+          `;
+          recentContainer.appendChild(card);
+        });
+      } catch (err) {
+        console.error("Error loading progress:", err);
+      }
+    }
+
+    loadProgress();
+</script>
 </body>
 </html>
