@@ -4,6 +4,7 @@ import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
 import com.edusphere.controllers.NoteController;
 import com.edusphere.controllers.QuizController;
+import com.edusphere.controllers.ScholarshipController;
 
 public class Main {
     public static void main(String[] args) {
@@ -26,5 +27,8 @@ public class Main {
         // Register note routes
         NoteController.registerRoutes(app);
         QuizController.registerRoutes(app);
+        ScholarshipController.registerRoutes(app);
+
     }
 }
+
